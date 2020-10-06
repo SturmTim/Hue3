@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
  *
  * @author timst
  */
-public class main {
+public class Main {
 
     /**
      * @param args the command line arguments
