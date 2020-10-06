@@ -8,6 +8,7 @@ package pos3.tsturm18;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,8 +30,25 @@ public class Main {
 
     }
 
-    public void sortList() {
+    public void sortListOnlyDamage() {
         list.sort((Weapon o1, Weapon o2) -> Integer.compare(o1.getDamage(), o2.getDamage()));
+    }
+
+    public void sortListFull() {
+        list.sort(new Comparator<Weapon>() {
+            @Override
+            public int compare(Weapon o1, Weapon o2) {
+                if (o1.getCombatType().compareTo(o2.getCombatType()) == 0) {
+                    if (o1.getDamageType().compareTo(o2.getDamageType()) == 0) {
+                        return o1.getName().compareTo(o2.getName());
+                    } else {
+                        return Integer.compare(o1.getDamage(), o2.getDamage());
+                    }
+                } else {
+                    return o1.getCombatType().compareTo(o2.getCombatType());
+                }
+            }
+        });
     }
 
     public void readWeapons() {
