@@ -8,7 +8,6 @@ package pos3.tsturm18;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,36 +21,40 @@ import java.util.stream.Collectors;
 public class Main {
 
     /**
-     * @param args the command line arguments
      */
-    List<Weapon> list = new LinkedList<>();
+    public static List<Weapon> list = new LinkedList<>();
 
     public static void main(String[] args) {
-
+        readWeapons();
+        sortListFull();
+        Printable printler;
+        printler = (List<Weapon> weapons) -> {
+            list.forEach((weapon) -> {
+                System.out.println(weapon.toString());
+            });
+        };
+        printler.print(list);
     }
 
-    public void sortListOnlyDamage() {
+    public static void sortListOnlyDamage() {
         list.sort((Weapon o1, Weapon o2) -> Integer.compare(o1.getDamage(), o2.getDamage()));
     }
 
-    public void sortListFull() {
-        list.sort(new Comparator<Weapon>() {
-            @Override
-            public int compare(Weapon o1, Weapon o2) {
-                if (o1.getCombatType().compareTo(o2.getCombatType()) == 0) {
-                    if (o1.getDamageType().compareTo(o2.getDamageType()) == 0) {
-                        return o1.getName().compareTo(o2.getName());
-                    } else {
-                        return Integer.compare(o1.getDamage(), o2.getDamage());
-                    }
+    public static void sortListFull() {
+        list.sort((Weapon o1, Weapon o2) -> {
+            if (o1.getCombatType().toString().compareTo(o2.getCombatType().toString()) == 0) {
+                if (o1.getDamageType().toString().compareTo(o2.getDamageType().toString()) == 0) {
+                    return o1.getName().compareTo(o2.getName());
                 } else {
-                    return o1.getCombatType().compareTo(o2.getCombatType());
+                    return o1.getDamageType().toString().compareTo(o2.getDamageType().toString());
                 }
+            } else {
+                return o1.getCombatType().toString().compareTo(o2.getCombatType().toString());
             }
         });
     }
 
-    public void readWeapons() {
+    public static void readWeapons() {
         try {
             list = Files.lines(new File("weapons.csv")
                     .toPath())

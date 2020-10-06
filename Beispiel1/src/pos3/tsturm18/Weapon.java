@@ -85,4 +85,9 @@ public class Weapon {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return "Weapon{" + "name=" + name + ", combatType=" + combatType + ", damageType=" + damageType + ", damage=" + damage + ", speed=" + speed + ", strength=" + strength + ", value=" + value + '}';
+    }
+
 }
