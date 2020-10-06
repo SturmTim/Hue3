@@ -27,13 +27,15 @@ public class Main {
     public static void main(String[] args) {
         readWeapons();
         sortListFull();
-        Printable printler;
-        printler = (List<Weapon> weapons) -> {
+        Printable printNormal;
+        printNormal = (List<Weapon> weapons) -> {
             list.forEach((weapon) -> {
                 System.out.println(weapon.toString());
             });
         };
-        printler.print(list);
+        printNormal.print(list);
+        printTabelle();
+
     }
 
     public static void sortListOnlyDamage() {
@@ -64,6 +66,116 @@ public class Main {
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void printTabelle() {
+        Printable tabelle;
+        tabelle = (List<Weapon> weapons) -> {
+            int space = 30;
+            int spaceSub = 0;
+            for (int i = 0; i < 7; i++) {
+                System.out.print("+");
+                for (int j = 0; j < space; j++) {
+                    System.out.print("-");
+                }
+            }
+            System.out.println("+");
+            for (int i = 0; i < 7; i++) {
+                System.out.print("|");
+                switch (i) {
+                    case 0:
+                        spaceSub = space - "Name".length();
+                        System.out.print("Name");
+                        break;
+                    case 1:
+                        spaceSub = space - "CombatType".length();
+                        System.out.print("CombatType");
+                        break;
+                    case 2:
+                        spaceSub = space - "DamageType".length();
+                        System.out.print("DamageType");
+                        break;
+                    case 3:
+                        spaceSub = space - "damage".length();
+                        System.out.print("damage");
+                        break;
+                    case 4:
+                        spaceSub = space - "speed".length();
+                        System.out.print("speed");
+                        break;
+                    case 5:
+                        spaceSub = space - "strength".length();
+                        System.out.print("strength");
+                        break;
+                    case 6:
+                        spaceSub = space - "value".length();
+                        System.out.print("value");
+                        break;
+                }
+                for (int j = 0; j < spaceSub; j++) {
+                    System.out.print(" ");
+                }
+
+            }
+            System.out.println("|");
+            list.forEach((weapon) -> {
+                int spaceSubstract = 0;
+                for (int i = 0; i < 7; i++) {
+                    System.out.print("+");
+                    for (int j = 0; j < 30; j++) {
+                        System.out.print("-");
+                    }
+                }
+                System.out.println("+");
+                for (int i = 0; i < 7; i++) {
+                    System.out.print("|");
+                    switch (i) {
+                        case 0:
+                            spaceSubstract = 30 - weapon.getName().length();
+                            System.out.print(weapon.getName());
+                            break;
+                        case 1:
+                            spaceSubstract = 30 - weapon.getCombatType().toString().length();
+                            System.out.print(weapon.combatType.toString());
+                            break;
+                        case 2:
+                            spaceSubstract = 30 - weapon.getDamageType().toString().length();
+                            System.out.print(weapon.getDamageType().toString());
+                            break;
+                        case 3:
+                            spaceSubstract = 30 - Integer.toString(weapon.getDamage()).length();
+                            System.out.print(weapon.getDamage());
+                            break;
+                        case 4:
+                            spaceSubstract = 30 - Integer.toString(weapon.getSpeed()).length();
+                            System.out.print(weapon.getSpeed());
+                            break;
+                        case 5:
+                            spaceSubstract = 30 - Integer.toString(weapon.getStrength()).length();
+                            System.out.print(weapon.getStrength());
+                            break;
+                        case 6:
+                            spaceSubstract = 30 - Integer.toString(weapon.getValue()).length();
+                            System.out.print(weapon.getValue());
+                            break;
+                    }
+                    for (int j = 0; j < spaceSubstract; j++) {
+                        System.out.print(" ");
+                    }
+                }
+                System.out.println("|");
+
+            });
+            for (int i = 0; i < 7; i++) {
+                System.out.print("+");
+                for (int j = 0; j < space; j++) {
+                    System.out.print("-");
+                }
+            }
+            System.out.println("+");
+
+        };
+        tabelle.print(list);
     }
 
 }
