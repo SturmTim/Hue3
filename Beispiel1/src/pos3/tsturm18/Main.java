@@ -26,7 +26,7 @@ public class Main {
 
     public static void main(String[] args) {
         readWeapons();
-        sortListFull();
+        list = sortListFull(list);
         Printable printNormal;
         printNormal = (List<Weapon> weapons) -> {
             list.forEach((weapon) -> {
@@ -38,12 +38,13 @@ public class Main {
 
     }
 
-    public static void sortListOnlyDamage() {
-        list.sort((Weapon o1, Weapon o2) -> Integer.compare(o1.getDamage(), o2.getDamage()));
+    public static List<Weapon> sortListOnlyDamage(List<Weapon> weapons) {
+        weapons.sort((Weapon o1, Weapon o2) -> Integer.compare(o1.getDamage(), o2.getDamage()));
+        return weapons;
     }
 
-    public static void sortListFull() {
-        list.sort((Weapon o1, Weapon o2) -> {
+    public static List<Weapon> sortListFull(List<Weapon> weapons) {
+        weapons.sort((Weapon o1, Weapon o2) -> {
             if (o1.getCombatType().toString().compareTo(o2.getCombatType().toString()) == 0) {
                 if (o1.getDamageType().toString().compareTo(o2.getDamageType().toString()) == 0) {
                     return o1.getName().compareTo(o2.getName());
@@ -54,6 +55,7 @@ public class Main {
                 return o1.getCombatType().toString().compareTo(o2.getCombatType().toString());
             }
         });
+        return weapons;
     }
 
     public static void readWeapons() {
@@ -176,6 +178,10 @@ public class Main {
 
         };
         tabelle.print(list);
+    }
+
+    public static List<Weapon> getList() {
+        return list;
     }
 
 }
